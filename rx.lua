@@ -450,12 +450,12 @@ function Observable:catch(handler)
         return observer:onCompleted()
       end
 
-      local success, continue = pcall(handler, e)
-      if success and continue then
+      local success, cont = pcall(handler, e)
+      if success and cont then
         if subscription then subscription:unsubscribe() end
-        continue:subscribe(observer)
+        cont:subscribe(observer)
       else
-        observer:onError(success and e or continue)
+        observer:onError(success and e or cont)
       end
     end
 
